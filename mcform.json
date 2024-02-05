@@ -1,19 +1,23 @@
-
-
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "type": "object",
+  "$schema": "https://raw.githubusercontent.com/tjakes/mcform/main/mcform.json",
+  "description": "Marbes Form file",
+  "title": "MC Form",
+  "type": "object",  
   "properties": {
     "form": {
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
+          "description": "Jméno formuláře, např. mmol-ohlaseni-vp",
+          "type": "string",
+          "maxlength": 50
         },
         "header": {
+          "description": "Hlavička formuláře",
           "type": "string"
         },
         "description": {
+          "description": "Popisek formuláře",
           "type": "string"
         },
         "itemList": {
@@ -23,7 +27,16 @@
               "type": "object",
               "properties": {
                 "type": {
-                  "type": "string"
+                  "type": "string",
+                  "enum": [
+                    "array",
+                    "boolean",
+                    "integer",
+                    "null",
+                    "number",
+                    "object",
+                    "string"
+                  ]
                 },
                 "name": {
                   "type": "string"
@@ -38,7 +51,16 @@
                       "type": "object",
                       "properties": {
                         "type": {
-                          "type": "string"
+                          "type": "string",
+                          "enum": [
+                            "array",
+                            "boolean",
+                            "integer",
+                            "null",
+                            "number",
+                            "object",
+                            "string"
+                          ]
                         },
                         "name": {
                           "type": "string"
@@ -48,93 +70,14 @@
                         },
                         "itemList": {
                           "type": "array",
-                          "items": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string"
-                                },
-                                "name": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "label": {
-                                  "type": "string"
-                                },
-                                "defaultValue": {
-                                  "type": "string"
-                                },
-                                "optionList": {
-                                  "type": "array",
-                                  "items": [
-                                    {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "string"
-                                        },
-                                        "label": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "value",
-                                        "label"
-                                      ]
-                                    },
-                                    {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "string"
-                                        },
-                                        "label": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "value",
-                                        "label"
-                                      ]
-                                    },
-                                    {
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "string"
-                                        },
-                                        "label": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "value",
-                                        "label"
-                                      ]
-                                    }
-                                  ]
-                                },
-                                "width": {
-                                  "type": "integer"
-                                },
-                                "required": {
-                                  "type": "boolean"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name",
-                                "title",
-                                "label",
-                                "defaultValue",
-                                "optionList",
-                                "width",
-                                "required"
-                              ]
-                            }
+                          "enum": [
+                            "array",
+                            "boolean",
+                            "integer",
+                            "null",
+                            "number",
+                            "object",
+                            "string"
                           ]
                         }
                       },
@@ -193,157 +136,6 @@
                                 "width",
                                 "required",
                                 "defaultValue"
-                              ]
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string"
-                                },
-                                "name": {
-                                  "type": "string"
-                                },
-                                "label": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "width": {
-                                  "type": "integer"
-                                },
-                                "required": {
-                                  "type": "boolean"
-                                },
-                                "defaultValue": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name",
-                                "label",
-                                "title",
-                                "width",
-                                "required",
-                                "defaultValue"
-                              ]
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string"
-                                },
-                                "name": {
-                                  "type": "string"
-                                },
-                                "label": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "width": {
-                                  "type": "integer"
-                                },
-                                "required": {
-                                  "type": "boolean"
-                                },
-                                "defaultValue": {
-                                  "type": "string"
-                                },
-                                "min": {
-                                  "type": "string"
-                                },
-                                "max": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name",
-                                "label",
-                                "title",
-                                "width",
-                                "required",
-                                "defaultValue",
-                                "min",
-                                "max"
-                              ]
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string"
-                                },
-                                "name": {
-                                  "type": "string"
-                                },
-                                "label": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "width": {
-                                  "type": "integer"
-                                },
-                                "required": {
-                                  "type": "boolean"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name",
-                                "label",
-                                "title",
-                                "width",
-                                "required"
-                              ]
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type"
-                              ]
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string"
-                                },
-                                "name": {
-                                  "type": "string"
-                                },
-                                "label": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "width": {
-                                  "type": "integer"
-                                },
-                                "required": {
-                                  "type": "boolean"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name",
-                                "label",
-                                "title",
-                                "width",
-                                "required"
                               ]
                             },
                             {
@@ -3189,7 +2981,6 @@
       "required": [
         "name",
         "header",
-        "description",
         "itemList"
       ]
     }

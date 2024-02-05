@@ -1,0 +1,88 @@
+"items": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "label": {
+                                  "type": "string"
+                                },
+                                "defaultValue": {
+                                  "type": "string"
+                                },
+                                "optionList": {
+                                  "type": "array",
+                                  "items": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "string"
+                                        },
+                                        "label": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "value",
+                                        "label"
+                                      ]
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "string"
+                                        },
+                                        "label": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "value",
+                                        "label"
+                                      ]
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "value": {
+                                          "type": "string"
+                                        },
+                                        "label": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "value",
+                                        "label"
+                                      ]
+                                    }
+                                  ]
+                                },
+                                "width": {
+                                  "type": "integer"
+                                },
+                                "required": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "name",
+                                "title",
+                                "label",
+                                "defaultValue",
+                                "optionList",
+                                "width",
+                                "required"
+                              ]
+                            }
+                          ]
