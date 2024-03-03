@@ -1,0 +1,234 @@
+{
+	"form": {
+		"name": "test",
+		"header": "Testovací marbes formulář",
+		"description": "Obsahuje všechny (nebo alespoň většinu) polí a funkčností, které formulářový systém nabízí",
+		"itemList": [
+			{
+				"type": "section",
+				"name": "obecnaPole",
+				"label": "Obecná pole",
+				"help": "I sekce může mít svoji nápovědu",
+				"itemList": [
+					{
+						"type": "text",
+						"name": "text",
+						"label": "Textové pole ",
+						"title": "Text po najetí na textové pole",
+						"help": "Nápověda k poli",
+						"defaultValue": "{formdata.subjekt.jmeno} {formdata.subjekt.prijmeni}",
+						"width": 6
+					},
+					{
+						"type": "newRow"
+					},
+					{
+						"type": "number",
+						"name": "cislo",
+						"label": "Číselné pole",
+						"width": 6
+					},
+					{
+						"type": "date",
+						"name": "datum",
+						"label": "Datumové pole",
+						"defaultValue": "now",
+						"width": 6
+					},
+					{
+						"type": "html",
+						"name": "mezera",
+						"label": "Vložený kus html",
+						"width": 6,
+						"text": "Hellow <strong>World!</strong>"
+					},
+					{
+						"type": "checkbox",
+						"name": "checkbox",
+						"width": 6,
+						"label": "Souhlasím se vším",
+						"required": true,
+						"help": "Blbý, že nemáš na výběr, no :-)"
+					},
+					{
+						"type": "longtext",
+						"name": "longtext",
+						"width": 12,
+						"label": "Blok textu"
+					},
+					{
+						"type": "select",
+						"name": "barva",
+						"width": 6,
+						"label": "Výběrové pole",
+						"defaultValue": "2",
+						"optionList": [
+							{
+								"value": "1",
+								"label": "Volba jedna"
+							},
+							{
+								"value": "2",
+								"label": "Volba 2"
+							},
+							{
+								"value": "3",
+								"label": "Volba 3"
+							},
+							{
+								"value": "rebel",
+								"label": "Jsem rebel"
+							}
+						]
+					},
+					{
+						"type": "option",
+						"name": "radio",
+						"label": "Přepínací pole s možnostna pod sebou",
+						"layout": "vertical",
+						"optionList": [
+							{
+								"value": "1",
+								"label": "Volba 1"
+							},
+							{
+								"value": "2",
+								"label": "Volba 2"
+							},
+							{
+								"value": "3",
+								"label": "Volba 3"
+							}
+						],
+						"width": 12,
+						"required": true
+					},
+					{
+						"type": "checkbox",
+						"name": "zobrazitDalsiPole",
+						"width": 12,
+						"label": "Zobrazit ještě jedno pole"
+					},
+					{
+						"type": "text",
+						"showIf": "._zobrazitDalsiPole == true",
+						"name": "nickname",
+						"label": "Přezdívka ",
+						"title": "Vyplňte přezdívku",
+						"help": "Pokud máte hustou přezdívku v gangu můžete jí uvést",
+						"width": 12
+					},
+					{
+						"type": "text",
+						"name": "pocitanePole",
+						"width": 12,
+						"help": "Tohle pole nejde vyplnit ručně, objeví se v něm hodnoty z prvních dvou polí formuláře",
+						"label": "Tohle pole se automaticky vyplňí z jiných hodnot",
+						"computedValue": "return obecnaPole_text . ' (' . obecnaPole_cislo . ')';"
+					}
+				]
+			},
+			{
+				"type": "section",
+				"name": "validace",
+				"label": "Druhá sekce - Validace",
+				"itemList": [
+					{
+						"type": "option",
+						"name": "zobrazitValidace",
+						"label": "Zobrazit speciálně validovaná pole",
+						"width": 12,
+						"defaultValue": "ne",
+						"optionList": [
+							{
+								"value": "ne",
+								"label": "Ne, děkuju"
+							},
+							{
+								"value": "ano",
+								"label": "Ano, rozhodně"
+							},
+							{
+								"value": "nevim",
+								"label": "Nevím"
+							}
+						]
+					},
+					{
+						"type": "group",
+						"name": "validovanaPole",
+						"label": "Pole",
+						"showIf": "validace_zobrazitValidace === 'ano'",
+						"width": 12,
+						"help": "I skupina může mít svoji nápovědu",
+						"itemList": [
+							{
+								"type": "text",
+								"name": "telefon",
+								"width": 6,
+								"label": "Telefonní číslo",
+								"format": "telefon",
+								"required": true
+							},
+							{
+								"type": "text",
+								"name": "email",
+								"width": 6,
+								"label": "Emailová adresa",
+								"format": "email"
+							},
+							{
+								"type": "text",
+								"name": "rc",
+								"width": 6,
+								"label": "Rodné číslo",
+								"format": "rodneCislo"
+							},
+							{
+								"type": "text",
+								"name": "ico",
+								"width": 6,
+								"label": "IČ organizace",
+								"format": "ic"
+							}
+						]
+					},
+					{
+						"type": "html",
+						"name": "rozmysli",
+						"width": 12,
+						"showIf": "._zobrazitValidace === 'nevim'",
+						"text": "<strong>No tak si to ještě rozmysli</strong>"
+					}
+				]
+			},
+			{
+				"type": "section",
+				"name": "soubory",
+				"label": "Třetí sekce - soubory",
+				"itemList": [
+					{
+						"type": "file",
+						"name": "soubor",
+						"label": "Jeden soubor",
+						"width": 6
+					},
+					{
+						"type": "file",
+						"limit": 3,
+						"formats": [
+							"jpg",
+							"png",
+							"gif"
+						],
+						"name": "obrazky",
+						"label": "Více souborů",
+						"help": "Pole je konfiguračně omezené na formáty jpg, png a gif a maximální počet souborů je 3 - a je nutné vyplnit alespoň jeden soubor",
+						"width": 6,
+						"required": true
+					}
+				]
+			}
+		]
+	}
+}

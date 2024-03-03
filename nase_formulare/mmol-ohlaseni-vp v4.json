@@ -1,0 +1,849 @@
+{
+	"form": {
+		"name": "mmol-ohlaseni-vp",
+		"header": "Ohlášení k místnímu poplatku za užívání veřejného prostranství",
+		"description": "Ohlášení k místnímu poplatku za užívání veřejného prostranství dle zákona o místních poplatcích a OZV statutárního města Olomouce č. 6/2022 (určeno Magistrátu města Olomouce, odbor ekonomický, oddělení místních poplatků, pracoviště Palackého 14, 779 11 Olomouc)",
+		"itemList": [
+			{
+				"type": "section",
+				"name": "ohlasovatel",
+				"label": "Ohlašovatel",
+				"itemList": [
+					{
+						"type": "group",
+						"name": "kontakt",
+						"label": "Kontaktní údaje",
+						"itemList": [
+							{
+								"type": "option",
+								"name": "typ",
+								"title": "Vyberte typ osoby",
+								"label": "Vyberte typ osoby",
+								"defaultValue": "{formdata.subjekt.typSubjektu}",
+								"optionList": [
+									{
+										"value": "FO",
+										"label": "Fyzická osoba"
+									},
+									{
+										"value": "FOP",
+										"label": "Fyzická osoba podnikající"
+									},
+									{
+										"value": "PO",
+										"label": "Právnická osoba"
+									}
+								],
+								"width": 12,
+								"required": true
+							}
+						]
+					},
+					{
+						"type": "group",
+						"name": "udajeFo",
+						"showIf": "ohlasovatel_kontakt_typ==='FO'",
+						"itemList": [
+							{
+								"type": "text",
+								"name": "jmeno",
+								"label": "Jméno",
+								"title": "Vyplňte křestní jméno",
+								"width": 4,
+								"required": true,
+								"defaultValue": "{formdata.subjekt.jmeno}"
+							},
+							{
+								"type": "text",
+								"name": "prijmeni",
+								"label": "Příjmení",
+								"title": "Vyplňte příjmení",
+								"width": 4,
+								"required": true,
+								"defaultValue": "{formdata.subjekt.prijmeni}"
+							},
+							{
+								"type": "date",
+								"name": "datumNarozeni",
+								"label": "Datum narození",
+								"title": "Vyplňte datum narození",
+								"width": 2,
+								"required": true,
+								"defaultValue": "{formdata.subjekt.datumNarozeni}",
+								"min": "1900-01-01",
+								"max": "now"
+							},
+							{
+								"type": "text",
+								"name": "rc",
+								"label": "Rodné číslo",
+								"title": "Vyplňte rodné číslo",
+								"width": 2,
+								"required": false
+							},
+							{
+								"type": "newRow"
+							},
+							{
+								"type": "text",
+								"name": "email",
+								"label": "E-mail",
+								"title": "Vyplňte e-mail",
+								"width": 3,
+								"required": false
+							},
+							{
+								"type": "text",
+								"name": "telefon",
+								"label": "Telefon",
+								"title": "Vyplňte telefonní číslo",
+								"width": 2,
+								"required": false
+							}
+						]
+					},
+					{
+						"type": "group",
+						"name": "udajeFop",
+						"showIf": "ohlasovatel_kontakt_typ==='FOP'",
+						"itemList": [
+							{
+								"type": "text",
+								"name": "jmeno",
+								"label": "Jméno",
+								"title": "Vyplňte křestní jméno",
+								"width": 4,
+								"required": true,
+								"defaultValue": "{formdata.subjekt.jmeno}"
+							},
+							{
+								"type": "text",
+								"name": "prijmeni",
+								"label": "Příjmení",
+								"title": "Vyplňte příjmení",
+								"width": 4,
+								"required": true,
+								"defaultValue": "{formdata.subjekt.prijmeni}"
+							},
+							{
+								"type": "date",
+								"name": "datumnar",
+								"label": "Datum narození",
+								"title": "Vyplňte datum narození",
+								"width": 2,
+								"required": true,
+								"defaultValue": "{formdata.subjekt.datumNarozeni}",
+								"min": "1900-01-01",
+								"max": "now"
+							},
+							{
+								"type": "number",
+								"name": "rodnecis",
+								"label": "Rodné číslo",
+								"title": "Vyplňte rodné číslo",
+								"width": 2,
+								"required": false
+							},
+							{
+								"type": "newRow"
+							},
+							{
+								"type": "text",
+								"name": "email",
+								"label": "E-mail",
+								"title": "Vyplňte e-mail",
+								"width": 3,
+								"required": false
+							},
+							{
+								"type": "text",
+								"name": "telefon",
+								"label": "Telefon",
+								"title": "Vyplňte telefonní číslo",
+								"width": 2,
+								"required": false
+							}
+						]
+					},
+					{
+						"type": "group",
+						"name": "udajePo",
+						"showIf": "ohlasovatel_kontakt_typ==='PO'",
+						"itemList": [
+							{
+								"type": "text",
+								"name": "nazev",
+								"label": "Název",
+								"title": "Vyplňte název firmy",
+								"width": 5,
+								"required": true
+							},
+							{
+								"type": "text",
+								"name": "ic",
+								"label": "IČ",
+								"title": "Vyplňte IČ firmy",
+								"width": 2,
+								"required": true
+							},
+							{
+								"type": "newRow"
+							},
+							{
+								"type": "group",
+								"name": "kontaktPO",
+								"label": "Kontaktní osoba",
+								"itemList": [
+									{
+										"type": "text",
+										"name": "jmeno",
+										"label": "Jméno",
+										"title": "Vyplňte křestní jméno",
+										"width": 4,
+										"required": true
+									},
+									{
+										"type": "text",
+										"name": "prijmeni",
+										"label": "Příjmení",
+										"title": "Vyplňte příjmení",
+										"width": 4,
+										"required": true
+									},
+									{
+										"type": "text",
+										"name": "email",
+										"label": "E-mail",
+										"title": "Vyplňte e-mail",
+										"width": 3,
+										"required": false
+									},
+									{
+										"type": "text",
+										"name": "telefon",
+										"label": "Telefon",
+										"title": "Vyplňte telefonní číslo",
+										"width": 2,
+										"required": false
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "newRow"
+					},
+					{
+						"type": "checkbox",
+						"name": "jinykont",
+						"showIf": "ohlasovatel_kontakt_typ!=='PO'",
+						"label": "Jiná kontaktní osoba"
+					},
+					{
+						"type": "group",
+						"name": "jinaosoba",
+						"showIf": "ohlasovatel_jinykont == 1 && ohlasovatel_kontakt_typ!=='PO'",
+						"itemList": [
+							{
+								"type": "text",
+								"name": "jmeno",
+								"label": "Jméno",
+								"title": "Vyplňte křestní jméno",
+								"width": 4,
+								"required": true
+							},
+							{
+								"type": "text",
+								"name": "prijmeni",
+								"label": "Příjmení",
+								"title": "Vyplňte příjmení",
+								"width": 4,
+								"required": true
+							},
+							{
+								"type": "text",
+								"name": "email",
+								"label": "E-mail",
+								"title": "Vyplňte e-mail",
+								"width": 3,
+								"required": false
+							},
+							{
+								"type": "text",
+								"name": "telefon",
+								"label": "Telefon",
+								"title": "Vyplňte telefonní číslo",
+								"width": 2,
+								"required": false
+							}
+						]
+					},
+					{
+						"type": "group",
+						"name": "adresa",
+						"label": "Trvalá adresa",
+						"itemList":  [
+							{
+								"type": "text",
+								"name": "ulice",
+								"label": "Ulice",
+								"title": "Vyplňte ulici",
+								"width": 3,
+								"defaultValue": "{formdata.subjekt.adresaTrv.ulice}",
+								"required": false
+							},
+							{
+								"type": "text",
+								"name": "co",
+								"label": "Č. o.",
+								"title": "Vyplňte číslo orientační",
+								"defaultValue": "{formdata.subjekt.adresaTrv.cisloOrientacni}",
+								"width": 1
+							},
+							{
+								"type": "text",
+								"name": "cp",
+								"label": "Č. p.",
+								"title": "Vyplňte číslo popisné",
+								"width": 1,
+								"defaultValue": "{formdata.subjekt.adresaTrv.cisloDomovni}",
+								"required": true
+							},
+							{
+								"type": "text",
+								"name": "obec",
+								"label": "Obec",
+								"title": "Vyplňte obec",
+								"width": 3,
+								"defaultValue": "{formdata.subjekt.adresaTrv.obec}",
+								"required": true
+							},
+							{
+								"type": "text",
+								"name": "castob",
+								"label": "Část obce",
+								"title": "Vyplňte část obce",
+								"defaultValue": "{formdata.subjekt.adresaTrv.castObce}",
+								"width": 3
+							},
+							{
+								"type": "newRow"
+							},
+							{
+								"type": "text",
+								"name": "psc",
+								"label": "PSČ",
+								"title": "Vyplňte PSČ",
+								"defaultValue": "{formdata.subjekt.adresaTrv.psc}",
+								"width": 2
+							},
+							{
+								"type": "select",
+								"name": "stat",
+								"label": "Stát",
+								"title": "Vyplňte stát",
+								"defaultValue": "{formdata.subjekt.adresaTrv.stat}",
+								"optionList": [
+									{
+										"value": "cr",
+										"label": "Česká republika"
+									},
+									{
+										"value": "sk",
+										"label": "Slovensko"
+									},
+									{
+										"value": "de",
+										"label": "Německo"
+									},
+									{
+										"value": "au",
+										"label": "Rakousko"
+									}
+								],
+								"width": 3
+							},
+							{
+								"type": "newRow"
+							},
+							{
+								"type": "checkbox",
+								"name": "jinaadresa",
+								"label": "Jiná doručovací adresa"
+							},
+							{
+								"type": "group",
+								"name": "jinaadresac",
+								"showIf": "ohlasovatel_adresa_jinaadresa == 1",
+								"itemList": [
+									{
+										"type": "text",
+										"name": "ulice",
+										"label": "Ulice",
+										"title": "Vyplňte ulici",
+										"width": 3,
+										"required": false
+									},
+									{
+										"type": "text",
+										"name": "co",
+										"label": "Č. o.",
+										"title": "Vyplňte číslo orientační",
+										"width": 1
+									},
+									{
+										"type": "text",
+										"name": "cp",
+										"label": "Č. p.",
+										"title": "Vyplňte číslo popisné",
+										"width": 1,
+										"required": true
+									},
+									{
+										"type": "text",
+										"name": "obec",
+										"label": "Obec",
+										"title": "Vyplňte obec",
+										"width": 3,
+										"required": true
+									},
+									{
+										"type": "text",
+										"name": "castob",
+										"label": "Část obce",
+										"title": "Vyplňte část obce",
+										"width": 3
+									},
+									{
+										"type": "newRow"
+									},
+									{
+										"type": "text",
+										"name": "psc",
+										"label": "PSČ",
+										"title": "Vyplňte PSČ",
+										"width": 2
+									},
+									{
+										"type": "select",
+										"name": "stat",
+										"label": "Stát",
+										"title": "Vyplňte stát",
+										"defaultValue": "{formdata.subjekt.adresaTrv.stat}",
+										"optionList": [
+											{
+												"value": "cr",
+												"label": "Česká republika"
+											},
+											{
+												"value": "sk",
+												"label": "Slovensko"
+											},
+											{
+												"value": "de",
+												"label": "Německo"
+											},
+											{
+												"value": "au",
+												"label": "Rakousko"
+											}
+										],
+										"width": 3
+									}
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				"type": "section",
+				"name": "prostranstvi",
+				"label": "Údaje o užívání veřejného prostranství",
+				"itemList": [
+					{
+						"type": "group",
+						"name": "ucel1",
+						"label": "Typ ohlášení",
+						"itemList": [
+							{
+								"type": "option",
+								"name": "ucel1op",
+								"title": "Typ ohlášení užívání veřejného prostranství",
+								"label": "Vyberte typ ohlášení užívání veřejného prostranství",
+								"optionList": [
+
+									{
+										"value": "vznik",
+										"label": "Vznik"
+									},
+									{
+										"value": "zmena",
+										"label": "Změna"
+									},
+									{
+										"value": "zanik",
+										"label": "Zánik"
+									}
+								],
+
+								"width": 12,
+								"required": true
+
+							}
+						]
+					},
+					{
+						"type": "group",
+						"name": "ucel2",
+						"label": "Účel",
+						"itemList": [
+							{
+								"type": "option",
+								"name": "ucel2",
+								"title": "Způsob sjednání užívání veřejného prostranství",
+								"label": "Vyberte způsob sjednání užívání veřejného prostranství",
+								"optionList": [
+									{
+										"value": "rozhodnuti",
+										"label": "Vydáno rozhodnutí o zvláštním užívání komunikace"
+									},
+									{
+										"value": "zvlastniPovoleni",
+										"label": "Uzavřena dohoda o povolení zvláštního užívání veřejné zeleně se Statutárním městem Olomouc"
+									},
+									{
+										"value": "soukromyVlastnik",
+										"label": "Uzavřena dohoda se soukromým vlastníkem veřejného prostranství"
+									}
+								],
+								"width": 12,
+								"required": true
+							},
+           					{
+						"type": "text",
+						"name": "identSjednani",
+						"title": "Identifikace rozhodnutí nebo dohody o užívání veřejného prostranství",
+						"label": "Vyplňte identifikaci rozhodnutí nebo dohody",
+						"width": 4,
+						"required": false
+        					},
+							{
+								"type": "select",
+								"name": "ucel3",
+								"label": "Účel užívání veřejného prostranství",
+								"title": "Vyberte účel užívání veřejného prostranství",
+								"optionList": [
+									{
+										"value": "ucelA",
+										"label": "Umístění dočasných staveb a zařízení sloužících pro poskytování služeb, jde-li o zahrádky sloužící k podávání občerstvení mimo provozovnu, konstrukce pro přístup k prodejním oknům a vystavení zboží před vlastní provozovnou"
+									},
+									{
+										"value": "ucelB",
+										"label": "Umístění dočasných staveb sloužících pro poskytování služeb, nejde-li o případy dle písm. a) tohoto odstavce, za umístění dočasných staveb sloužících pro poskytování prodeje a za umístění zařízení sloužících pro poskytování služeb"
+									},
+									{
+										"value": "ucelC",
+										"label": "Umístění zařízení sloužících pro poskytování prodeje"
+									},
+									{
+										"value": "ucelD",
+										"label": "Provádění výkopových prací, za umístění stavebních zařízení, za umístění skládek (například stavebního materiálu a kontejnerů)"
+									},
+									{
+										"value": "ucelE",
+										"label": "Umístění reklamních zařízení (včetně nabídkových tabulí)"
+									},
+									{
+										"value": "ucelF",
+										"label": "Vyhrazení trvalého parkovacího místa pro osobní vozidla 10,- Kč za m2 a den"
+									},
+									{
+										"value": "ucelG",
+										"label": "Užívání veřejného prostranství pro reklamní akce"
+									},
+									{
+										"value": "ucelH",
+										"label": "Užívání veřejného prostranství pro potřeby tvorby filmových a televizních děl"
+									},
+									{
+										"value": "ucelI",
+										"label": "Vyhrazení trvalého parkovacího místa pro osobní vozidla paušální částkou na 51.100,- Kč za parkovací místo a rok"
+									},
+									{
+										"value": "ucelJ",
+										"label": "Vyhrazení trvalého parkovacího místa pro osobu, která je držitelem průkazu ZTP nebo ZTP/P"
+									}
+								],
+								"width": 12,
+                                "defaultValue": "ucelA",
+								"required": true
+							}
+						]
+					},
+					{
+						"type": "group",
+						"name": "mistoUzivani",
+						"label": "Místo užívání",
+						"itemList": [
+							{
+								"type": "option",
+								"name": "mistoUzivaniOp",
+								"title": "Místo užívání",
+								"label": "Vyberte místo užívání",
+								"optionList": [
+									{
+										"value": "zonaA",
+										"label": "Zóna A (městská památková rezervace)"
+									},
+									{
+										"value": "zonaB",
+										"label": "Zóna B (mimo městskou památkovou rezervaci)"
+									}
+								],
+								"width": 12,
+								"required": true
+							},
+        					{
+        						"type": "longtext",
+        						"name": "popisMistaUzivani",
+        						"label": "Podrobný popis místa a účelu užívání veřejného prostranství",
+        						"title": "Popis místa užívání",
+        						"width": 12,
+        						"required": true
+        					}
+						]
+					},
+					{
+						"type": "group",
+						"name": "dobaTrvaniZmena",
+						"showIf": "prostranstvi_ucel1_ucel1op==='zmena'",
+						"itemList": [
+							{
+								"type": "date",
+								"name": "zmenaOd",
+								"label": "Změna od",
+								"title": "Vyplňte změnu doby trvání od",
+								"width": 2,
+								"required": true
+							},
+							{
+								"type": "date",
+								"name": "zmenaDo",
+								"label": "Změna do",
+								"title": "Vyplňte změnu doby trvání do",
+								"width": 2,
+								"required": true
+							},
+							{
+								"type": "number",
+								"name": "zmenaPoctuDnu",
+								"label": "Změna dnů trvání užívání",
+								"width": 3,
+								"computedValue": "if(!._zmenaOd || !._zmenaDo){return '';}else{ return round((strtotime(._zmenaDo) - strtotime(._zmenaOd)) / (60*60*24));};",
+								"required": true
+							}
+						]
+					},
+					{
+						"type": "group",
+						"name": "dobaTrvaniVznik",
+						"showIf": "prostranstvi_ucel1_ucel1op==='vznik'",
+						"itemList": [
+							{
+								"type": "date",
+								"name": "vznikOd",
+								"label": "Vznik od",
+								"title": "Vyplňte vznik doby trvání od",
+								"width": 2,
+								"required": true
+							},
+							{
+								"type": "date",
+								"name": "vznikDo",
+								"label": "Vznik do",
+								"title": "Vyplňte vznik doby trvání do",
+								"width": 2,
+								"required": true
+							},
+							{
+								"type": "number",
+								"name": "pocetDnu",
+								"label": "Počet dnů trvání užívání",
+								"width": 3,
+								"computedValue": "if(!._vznikOd || !._vznikDo){return '';}else{ return round((strtotime(._vznikDo) - strtotime(._vznikOd)) / (60*60*24));};",
+								"required": true
+							}
+						]
+					},
+					{
+						"type": "group",
+						"name": "dobaTrvaniZanik",
+						"showIf": "prostranstvi_ucel1_ucel1op==='zanik'",
+						"itemList": [
+							{
+								"type": "date",
+								"name": "zanikOd",
+								"label": "Zánik od",
+								"title": "Vyplňte zánik doby trvání od",
+								"width": 2,
+								"required": true
+							},
+							{
+								"type": "date",
+								"name": "zanikDo",
+								"label": "Zánik do",
+								"title": "Vyplňte zánik doby trvání do",
+								"width": 2,
+								"required": true
+							},
+							{
+								"type": "number",
+								"name": "pocetDnuZanik",
+								"label": "Počet dnů zániku trvání užívání",
+								"width": 3,
+								"computedValue": "if(!._zanikOd || !._zanikDo){return '';}else{ return round((strtotime(._zanikDo) - strtotime(._zanikOd)) / (60*60*24));};",
+								"required": true
+							}
+						]
+					},
+					{
+						"type": "group",
+						"name": "vymeraPlochy",
+						"label": "Výměra plochy užívaného VP",
+						"itemList": [
+							{
+								"type": "text",
+								"name": "vymera",
+								"label": "Výměra v m2",
+								"title": "Výměra plochy",
+								"width": 2,
+								"required": true
+							}
+						]
+					},
+					{
+						"type": "group",
+						"name": "sazbaPoplatku",
+						"label": "Sazba poplatku a výše poplatkové povinnosti",
+						"itemList": [
+							{
+								"type": "text",
+								"name": "sazbaPoplatku",
+								"label": "Sazba poplatku",
+								"title": "Sazba poplatku",
+								"computedValue": "$od = null;$do = null;if(prostranstvi_ucel1_ucel1op==='vznik'){ $od = prostranstvi_dobaTrvaniVznik_vznikOd;    $do = prostranstvi_dobaTrvaniVznik_vznikDo;}if(prostranstvi_ucel1_ucel1op==='zmena'){  $od = prostranstvi_dobaTrvaniZmena_zmenaOd;    $do = prostranstvi_dobaTrvaniZmena_zmenaDo;}if(prostranstvi_ucel1_ucel1op==='zanik'){  $od = prostranstvi_dobaTrvaniZanik_zanikOd;    $do = prostranstvi_dobaTrvaniZanik_zanikDo;}$doba = ($od && $do) ? round((strtotime($do) - strtotime($od)) / (60*60*24)) : '';$ucel = prostranstvi_ucel2_ucel3;$zona = prostranstvi_mistoUzivani_mistoUzivaniOp;$sazby = [ 'ucelA'=>['zonaA'=>[3,1], 'zonaB'=>[2,1]], 'ucelB'=>['zonaA'=>[10,6], 'zonaB'=>[7,4]],    'ucelC'=>['zonaA'=>[50,32], 'zonaB'=>[30,10]], 'ucelD'=>['zonaA'=>[3,10], 'zonaB'=>[1,10]],   'ucelE'=>['zonaA'=>[50,10], 'zonaB'=>[30,4]],  'ucelF'=>['zonaA'=>[10,10], 'zonaB'=>[10,10]], 'ucelG'=>['zonaA'=>[10,10], 'zonaB'=>[8,8]],   'ucelH'=>['zonaA'=>[5,5], 'zonaB'=>[5,5]],];$sazba = $sazby[$ucel][$zona][$doba<=30 ? 0 : 1] ?? null;return $sazba;",
+								"width": 2,
+								"required": true
+							},
+							{
+								"type": "option",
+								"name": "osvobozeni",
+								"label": "Osvobození od poplatku",
+								"title": "Vyberte osvobození od poplatku",
+								"optionList": [
+									{
+										"value": "osvobozeniAno",
+										"label": "ANO"
+									},
+									{
+										"value": "osvobozeniNe",
+										"label": "NE"
+									}
+								],
+								"width": 2,
+                                "defaultValue": "osvobozeniNe",
+								"required": true
+							},
+							{
+								"type": "select",
+								"name": "typOsv",
+								"label": "Typ osvobození",
+								"title": "Vyberte typ osvobození od poplatku",
+								"width": 5,
+                                "showIf": "prostranstvi_sazbaPoplatku_osvobozeni==='osvobozeniAno'",
+								"optionList": [
+									{
+										"value": "typA",
+										"label": "Z vyhrazení parkovacího místa pro osobu s ZTP nebo ZTP/P"
+									},
+									{
+										"value": "typB",
+										"label": "Z akce na VP,  jejichž celý výtěžek je odveden na charitativní a veřejně prospěšné účely"
+									},
+									{
+										"value": "typC",
+										"label": "Statutární město Olomouc a příspěvkové organizace, jejichž zřizovatelem je statutární město Olomouc"
+									},
+									{
+										"value": "typD",
+										"label": "Za umístění skládky nepřesahující dobu jednoho kalendářního dne"
+									},
+									{
+										"value": "typE",
+										"label": "Za provádění výkopových prací z důvodu odstraňování havárie inženýrských sítí po dobu nepřesahující 10 dnů"
+									},
+									{
+										"value": "typF",
+										"label": "Z umístění dočasné stavby podle  čl. 5 odst. 1 písm. b) vyhlášky o místním poplatku za užívání veřejného prostranství"
+									},
+									{
+										"value": "typG",
+										"label": "Za  umístění  zařízení  sloužící ho k poskytování  služeb – zahrádky  sloužící k podávání občerstvení mimo provozovnu v obdobích od 1. 1. do 31. 3. a od 1. 11. do 31. 12. příslušného kalendářního roku"
+									},
+									{
+										"value": "typH",
+										"label": "Za umístění stavebního zařízení a umístění skládek při opravách fasád domů a mytí oken trvajících nejdéle 30 kalendářních dnů"
+									},
+									{
+										"value": "typI",
+										"label": "Za umístění stavebního zařízení a umístění skládek při havarijních opravách domů nařízených  Magistrátem  města  Olomouce  zdůvodu  ohrožení  života  a  zdraví občanů do prvních 60 kalendářních dnů (včetně) od počátku záboru"
+									},
+									{
+										"value": "typJ",
+										"label": "Za umístění stavebního zařízení, provádění výkopových prací, umístění skládek, stavebního materiálu a kontejnerů vpřípadě investičních akcí přímo souvisejících srealizací protipovodňových opatření na území města Olomouce, kde chráněným subjektem je statutární město Olomouc"
+									}
+								]
+							},
+							{
+								"type": "text",
+								"name": "vysePoplatku",
+								"label": "Výše poplatkové povinnosti",
+								"showIf": "prostranstvi_sazbaPoplatku_osvobozeni==='osvobozeniNe'",
+								"title": "Vyplňte výši poplatkové povinnosti",
+								"computedValue": "$od = null;$do = null;if(prostranstvi_ucel1_ucel1op==='vznik'){ $od = prostranstvi_dobaTrvaniVznik_vznikOd;    $do = prostranstvi_dobaTrvaniVznik_vznikDo;}if(prostranstvi_ucel1_ucel1op==='zmena'){  $od = prostranstvi_dobaTrvaniZmena_zmenaOd;    $do = prostranstvi_dobaTrvaniZmena_zmenaDo;}if(prostranstvi_ucel1_ucel1op==='zanik'){  $od = prostranstvi_dobaTrvaniZanik_zanikOd;    $do = prostranstvi_dobaTrvaniZanik_zanikDo;}$doba = ($od && $do) ? round((strtotime($do) - strtotime($od)) / (60*60*24)) : '';$ucel = prostranstvi_ucel2_ucel3;$zona = prostranstvi_mistoUzivani_mistoUzivaniOp;$sazby = [ 'ucelA'=>['zonaA'=>[3,1], 'zonaB'=>[2,1]], 'ucelB'=>['zonaA'=>[10,6], 'zonaB'=>[7,4]],    'ucelC'=>['zonaA'=>[50,32], 'zonaB'=>[30,10]], 'ucelD'=>['zonaA'=>[3,10], 'zonaB'=>[1,10]],   'ucelE'=>['zonaA'=>[50,10], 'zonaB'=>[30,4]],  'ucelF'=>['zonaA'=>[10,10], 'zonaB'=>[10,10]], 'ucelG'=>['zonaA'=>[10,10], 'zonaB'=>[8,8]],   'ucelH'=>['zonaA'=>[5,5], 'zonaB'=>[5,5]],];$sazba = $sazby[$ucel][$zona][$doba<=30 ? 0 : 1] ?? null;$vymera = prostranstvi_vymeraPlochy_vymera; return $vymera && $sazba && $doba ? $vymera*$sazba*$doba : '';",
+								"width": 3,
+								"required": true
+							}
+						]
+					}
+				]
+			},
+			{
+				"type": "section",
+				"name": "podepsani",
+				"label": "Podepsání",
+				"itemList": [
+					{
+						"type": "text",
+						"name": "mistoPodpis",
+						"label": "Místo",
+						"title": "Vyplňte místo podpisu",
+						"width": 4,
+                        "defaultValue": "Olomouc",
+						"required": true
+					},
+					{
+						"type": "date",
+						"name": "denPodepsani",
+						"label": "Dne",
+						"title": "Vyplňte den podpisu",
+						"width": 2,
+                       "defaultValue": "now",
+						"required": true
+					}
+				]
+			}
+		]
+	}
+}

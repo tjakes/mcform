@@ -1,0 +1,68 @@
+{
+  "$schema": "https://raw.githubusercontent.com/tjakes/mcform/main/mcform.json",
+  "description": "Marbes Form file",
+  "title": "MC Form",
+  "type": "object",  
+  "properties": {
+    "form": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Jméno formuláře, např. mmol-ohlaseni-vp",
+          "type": "string",
+          "maxlength": 50
+        },
+        "header": {
+          "description": "Hlavička formuláře",
+          "type": "string"
+        },
+        "description": {
+          "description": "Popisek formuláře",
+          "type": "string"
+        },
+        "itemList": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "array",
+                    "boolean",
+                    "integer",
+                    "null",
+                    "number",
+                    "object",
+                    "string"
+                  ]
+                },
+                "name": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "name",
+                "label"
+              ]
+            }          
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "header",
+        "itemList"
+      ]
+    }
+  },
+  "required": [
+    "form"
+  ]
+}
+

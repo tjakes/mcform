@@ -1,68 +1,212 @@
 {
-  "$schema": "https://raw.githubusercontent.com/tjakes/mcform/main/mcform.json",
-  "description": "Marbes Form file",
-  "title": "MC Form",
-  "type": "object",  
-  "properties": {
-    "form": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "description": "Jméno formuláře, např. mmol-ohlaseni-vp",
-          "type": "string",
-          "maxlength": 50
-        },
-        "header": {
-          "description": "Hlavička formuláře",
-          "type": "string"
-        },
-        "description": {
-          "description": "Popisek formuláře",
-          "type": "string"
-        },
-        "itemList": {
-          "type": "array",
-          "items": [
-            {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "enum": [
-                    "array",
-                    "boolean",
-                    "integer",
-                    "null",
-                    "number",
-                    "object",
-                    "string"
-                  ]
-                },
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://raw.githubusercontent.com/tjakes/mcform/main/mcform.json",
+    "type": "object",
+    "properties": {
+        "form": {
+            "type": "object",
+            "title": "MC Form",
+            "description": "Marbes Form file",
+            "$id": "#root/form",
+            "properties": {
                 "name": {
-                  "type": "string"
+                    "$ref": "#/definitions/defName",
+                    "description": "*Jméno formuláře, např. MMOLOhlaseniVP",
+                    "default": "MBFormZabory",
+                    "examples": ["MBFormZabory", "MHMPFormMistniPoplatek"]
                 },
-                "label": {
-                  "type": "string"
+                "header": {
+                    "description": "*Hlavička formuláře",
+                    "default": "Ohlášení k místnímu poplatku za užívání veřejného prostranství",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "Popisek formuláře",
+                    "type": "string"
+                },
+                "itemList": {
+                    "$ref": "#/definitions/defItemList"
+                },
+                "itemList2": {
+                    "type": "array",
+                    "items": [{
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "enum": [
+                                        "array",
+                                        "boolean",
+                                        "integer",
+                                        "null",
+                                        "number",
+                                        "object",
+                                        "string"
+                                    ]
+                                },
+                                "name": {
+                                    "type": "string"
+                                },
+                                "label": {
+                                    "type": "string"
+                                },
+                                "width": {"$ref": "#/definitions/defGridWidth"}
+                            },
+                            "required": ["type", "name", "label"]
+                        }
+                    ]
                 }
-              },
-              "required": [
-                "type",
-                "name",
-                "label"
-              ]
-            }          
-          ]
+            },
+            "required": ["name", "header", "itemList"]
         }
-      },
-      "required": [
-        "name",
-        "header",
-        "itemList"
-      ]
+    },
+    "required": ["form"],
+    "definitions": {
+        "defLabel": {
+            "type": "string",
+            "default": "",
+            "examples": ["Popisek prvku", "mhmp-form-mistni-poplatek"],
+            "maxlength": 100
+        },
+        "defName": {
+            "type": "string",
+            "description": "Jméno prvku (bez diakritiky, mezer a speciálních znaků)",
+            "examples": ["MHMPFormMistniPoplatek", "DelkaZaboruDnu"],
+            "pattern": "^[A-Za-z][A-Za-z0-9\\-]*$",
+            "minLength": 1,
+            "maxLength": 50
+        },
+        "defHelp": {
+            "type": "string",
+            "default": "Nápověda k této položce.",
+            "description": "Nápověda pod otazníčkem k dané položce. I sekce může mít svoji nápovědu."
+        },
+        "defGridWidth": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 12
+        },
+        "defSection": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": ["section"]
+                },
+                "name": {"$ref": "#/definitions/defName"},
+                "label": {"$ref": "#/definitions/defLabel"},
+                "help": {"$ref": "#/definitions/defHelp"},
+                "itemList": {
+                    "$ref": "#/definitions/defItemList"
+                }
+            },
+            "required": ["type", "name", "itemList"]
+        },
+        "defGroup": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": ["group"]
+                },
+                "name": {"$ref": "#/definitions/defName"},
+                "label": {"$ref": "#/definitions/defLabel"},
+                "help": {"$ref": "#/definitions/defHelp"},
+                "width": {"$ref": "#/definitions/defGridWidth"},
+                "itemList": {
+                    "$ref": "#/definitions/defItemList"
+                }
+            },
+            "required": ["type", "name", "itemList"]
+        },
+        "defItemList": {
+            "type": "array",
+            "items": {
+                    "type": "object",
+                    "anyOf": [
+                        {"$ref": "#/definitions/defSection"},
+                        {"$ref": "#/definitions/defNewRow"}
+                    ]
+            }
+        },
+        "defItemList3": {
+            "type": "array",
+            "uniqueItems": false,
+            "items": [{
+                    "$ref": "#/definitions/defSection"
+                }, {
+                    "$ref": "#/definitions/defNewRow"
+                }, {
+                    "$ref": "#/definitions/prvek"
+                }
+            ]
+        },
+        "defItemListHtml": {
+            "$ref": "#/definitions/defItemList",
+            "items": {}
+        },
+        "car": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": ["ford", "toyota"]
+                },
+                "dateOfManufacture": {
+                    "type": "string"
+                }
+            }
+        },
+        "defStructure": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": ["section", "group"]
+                },
+                "itemList": {
+                    "type": "array",
+                    "items": [{
+                            "$ref": "#/definitions/prvek"
+                        }
+                    ]
+                }
+            }
+        },
+        "prvek": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": ["text", "number", "file", "date", "longtext", "select", "option", "checkbox"]
+                },
+                "if": {
+                    "properties": {
+                        "type": {
+                            "enum": ["option"]
+                        }
+                    },
+                    "then": {
+                        "testovaci": {
+                            "type": "string",
+                            "enum": ["ano", "ne"]
+                        }
+                    }
+                }
+            }
+        },
+        "defNewRow": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": ["newRow"]
+                }
+            },
+            "required": ["type"]
+        }
     }
-  },
-  "required": [
-    "form"
-  ]
 }
-
