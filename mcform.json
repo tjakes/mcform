@@ -226,6 +226,8 @@
                 "optionList": {},
                 "layout": {},
                 "text": {},
+                "min": {},
+                "max": {},
                 "limit": {},
                 "format": {},
                 "formats": {}
@@ -308,6 +310,23 @@
                                 "examples": ["Délka (m)", "Šířka (m)", "Celkem (m)", "PSČ"]
                             }
                         }       
+                    }
+                },
+                {
+                    "if": {"properties": {"type": {"const": "date"}}},
+                    "then": {
+                        "description": "Pole s datumem. Možno využít defaultValue now.",
+                        "properties": {
+                            "defaultValue": {
+                                "default": "now"
+                            }
+                        }       
+                    },
+                    "else": {
+                        "properties": {
+                            "min": false,
+                            "max": false
+                        }
                     }
                 },
                 {
