@@ -11,12 +11,12 @@
             "properties": {
                 "name": {
                     "$ref": "#/definitions/defName",
-                    "description": "*Jméno formuláře, např. MMOLOhlaseniVP",
+                    "description": "Jméno formuláře, např. MMOLOhlaseniVP",
                     "default": "MBFormZabory",
                     "examples": ["MBFormZabory", "MHMPFormMistniPoplatek"]
                 },
                 "header": {
-                    "description": "*Hlavička formuláře",
+                    "description": "Hlavička formuláře",
                     "default": "Ohlášení k místnímu poplatku za užívání veřejného prostranství",
                     "type": "string"
                 },
@@ -25,36 +25,8 @@
                     "type": "string"
                 },
                 "itemList": {
-                    "$ref": "#/definitions/defItemList"
-                },
-                "itemList2": {
-                    "type": "array",
-                    "items": [{
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "type": "string",
-                                    "enum": [
-                                        "array",
-                                        "boolean",
-                                        "integer",
-                                        "null",
-                                        "number",
-                                        "object",
-                                        "string"
-                                    ]
-                                },
-                                "name": {
-                                    "type": "string"
-                                },
-                                "label": {
-                                    "type": "string"
-                                },
-                                "width": {"$ref": "#/definitions/defGridWidth"}
-                            },
-                            "required": ["type", "name", "label"]
-                        }
-                    ]
+                    "description": "Položky formuláře: sekce, skupiny, prvky.",
+                    "$ref": "#/definitions/defItemListForm"
                 }
             },
             "required": ["name", "header", "itemList"]
@@ -64,8 +36,13 @@
     "definitions": {
         "defLabel": {
             "type": "string",
-            "default": "",
-            "examples": ["Popisek prvku", "mhmp-form-mistni-poplatek"],
+            "default": "Popisek pole",
+            "description": "Popisek prvku na formuláři",
+            "maxlength": 30
+        },
+        "defTitle": {
+            "type": "string",
+            "default": "Text nad prvkem po najetí na pole myší.",
             "maxlength": 100
         },
         "defName": {
@@ -83,8 +60,74 @@
         },
         "defGridWidth": {
             "type": "integer",
+            "default": 2,
             "minimum": 1,
-            "maximum": 12
+            "maximum": 12,
+            "description": "Šířka pole v gridu (1-12). Width pro Desktop widthMobile pro mobilní."
+        },
+        "defRequired": {
+            "type":"boolean",
+            "default": true,
+            "description": "Položka je povinná."
+        },
+        "defDefaultValue": {
+            "type":"string",
+            "default": "",
+            "description": "Výchozí doplněná hodnota prvku."
+        },
+        "defComputedValue": {
+            "type":"string",
+            "default": "return 'ABC';",
+            "description": "Vypočítaná hodnota prvku JavaScriptem (vrací přes return)."
+        },
+        "defHtmlText": {
+            "type":"string",
+            "default": "Hellow <strong>World!</strong>",
+            "description": "Obsah HTML prvku včetně HTML značek."
+        },
+        "defClass": {
+            "type":"string",
+            "default": "",
+            "description": "Přidává uvedenou CSS třídu tomuto prvku."
+        },
+        "defShowIf":{
+            "type": "string",
+            "default": "",
+            "description": "Podmínky, při jejíž splnění je tato položka zobrazena.",
+            "examples": ["ohlasovatel_kontakt_typ==='FO'","validace_zobrazitValidace === 'ano'", "._zobrazitDalsiPole == true", ""]
+        },
+        "defLayout":{
+            "type": "string",
+            "default": "vertical",
+            "enum": ["vertical","horizontal"],
+            "description": "Jen pro option - vertical zobrazí volby pod sebe místo vedle sebe."
+        },
+        "defInputTypes": {
+            "type": "string",
+            "enum": ["email", "telefon", "rodneCislo", "ic"],
+            "description": "Specifikace typu textových dat - email, telefon, rodneCislo, ic"
+        },
+        "defOptionList": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "value": {
+                        "description": "Hodnota předávaná serveru",
+                        "type": "string",
+                        "examples": ["1","2","3","4","5","ucelA","ucelB","ucelC","ucelD"],
+                        "minLength": 1
+                    },
+                    "label": {
+                        "description": "Popisek položky",
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            },
+            "description": "Volby pro položky option a select. Položky jsou pole s hodnotami value a label."
         },
         "defSection": {
             "type": "object",
@@ -98,7 +141,7 @@
                 "label": {"$ref": "#/definitions/defLabel"},
                 "help": {"$ref": "#/definitions/defHelp"},
                 "itemList": {
-                    "$ref": "#/definitions/defItemList"
+                    "$ref": "#/definitions/defItemListSection"
                 }
             },
             "required": ["type", "name", "itemList"]
@@ -115,87 +158,214 @@
                 "label": {"$ref": "#/definitions/defLabel"},
                 "help": {"$ref": "#/definitions/defHelp"},
                 "width": {"$ref": "#/definitions/defGridWidth"},
+                "showIf": {"$ref": "#/definitions/defShowIf"},
                 "itemList": {
                     "$ref": "#/definitions/defItemList"
                 }
             },
             "required": ["type", "name", "itemList"]
         },
-        "defItemList": {
+        "defItemListForm": {
             "type": "array",
             "items": {
                     "type": "object",
                     "anyOf": [
                         {"$ref": "#/definitions/defSection"},
-                        {"$ref": "#/definitions/defNewRow"}
+                        {"$ref": "#/definitions/defGroup"},
+                        {"$ref": "#/definitions/defFormularovePrvky"}
                     ]
             }
         },
-        "defItemList3": {
+        "defItemListSection": {
             "type": "array",
-            "uniqueItems": false,
-            "items": [{
-                    "$ref": "#/definitions/defSection"
-                }, {
-                    "$ref": "#/definitions/defNewRow"
-                }, {
-                    "$ref": "#/definitions/prvek"
-                }
+            "items": {
+                    "type": "object",
+                    "anyOf": [
+                        {"$ref": "#/definitions/defGroup"},
+                        {"$ref": "#/definitions/defFormularovePrvky"}
+                    ]
+            }
+        },
+        "defItemList": {
+            "type": "array",
+            "items": {
+                    "type": "object",
+                    "anyOf": [
+                        {"$ref": "#/definitions/defFormularovePrvky"}        
+                    ]
+            }
+        },
+        "defFormularovePrvky": {
+            "type": "object",
+            "anyOf": [
+                {"$ref": "#/definitions/defBasicElement"},
+                {"$ref": "#/definitions/defNumberElement"},
+                {"$ref": "#/definitions/defNewRow"}
             ]
         },
-        "defItemListHtml": {
-            "$ref": "#/definitions/defItemList",
-            "items": {}
-        },
-        "car": {
+        "defBasicElement": {
             "type": "object",
+            "unevaluatedProperties": false,
+            "additionalProperties": false,
             "properties": {
                 "type": {
                     "type": "string",
-                    "enum": ["ford", "toyota"]
+                    "enum": ["text", "number", "file", "date", "longtext", "select", "option", "checkbox", "html"]
                 },
-                "dateOfManufacture": {
-                    "type": "string"
-                }
-            }
-        },
-        "defStructure": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "type": "string",
-                    "enum": ["section", "group"]
-                },
-                "itemList": {
-                    "type": "array",
-                    "items": [{
-                            "$ref": "#/definitions/prvek"
-                        }
-                    ]
-                }
-            }
-        },
-        "prvek": {
-            "type": "object",
-            "properties": {
-                "type": {
-                    "type": "string",
-                    "enum": ["text", "number", "file", "date", "longtext", "select", "option", "checkbox"]
-                },
-                "if": {
-                    "properties": {
-                        "type": {
-                            "enum": ["option"]
+                "name": {"$ref": "#/definitions/defName"},
+                "label": {"$ref": "#/definitions/defLabel"},
+                "title": {"$ref": "#/definitions/defTitle"},
+                "help": {"$ref": "#/definitions/defHelp"},
+                "required": {"$ref": "#/definitions/defRequired"},
+                "width": {"$ref": "#/definitions/defGridWidth"},
+                "widthMobile": {"$ref": "#/definitions/defGridWidth"},
+                "defaultValue": {"$ref": "#/definitions/defDefaultValue"},
+                "computedValue": {"$ref": "#/definitions/defComputedValue"},
+                "showIf": {"$ref": "#/definitions/defShowIf"},
+                "class": {"$ref": "#/definitions/defClass"},
+                "optionList": {},
+                "layout": {},
+                "text": {},
+                "limit": {},
+                "format": {},
+                "formats": {}
+            },
+            "dependencies": {
+                "type": ["name"]
+            },
+            "required": ["type", "name"],
+            "allOf": [
+                {
+                    "if": {"properties": {"type": {"const": "html"}}},
+                    "then": {
+                        "properties": {
+                            "text": {"$ref": "#/definitions/defHtmlText"},
+                            "defaultValue": false
                         }
                     },
+                    "else": {
+                        "properties": {
+                            "text": false
+                        },
+                        "required": ["label"]
+                    }
+                },
+                {
+                    "if": {"properties": {"type": {"const": "option"}}},
                     "then": {
-                        "testovaci": {
-                            "type": "string",
-                            "enum": ["ano", "ne"]
+                        "properties": {
+                            "layout": {"$ref": "#/definitions/defLayout"}
+                        }
+                    },
+                    "else": {
+                        "properties": {
+                            "layout": false
+                        }
+                    }
+                },
+                {
+                    "if": {"properties": {"type": {"anyOf": [{"const": "option"}, {"const": "select"}]}}},
+                    "then": {
+                        "properties": {
+                            "optionList": {"$ref": "#/definitions/defOptionList"}
+                        }
+                    },
+                    "else": {
+                        "properties": {
+                            "optionList": false
+                        }
+                    }
+                },
+                {
+                    "if": {"properties": {"type": {"const": "text"}}},
+                    "then": {
+                        "properties": {
+                            "label": {
+                                "default": "Popisek textového pole",
+                                "examples": ["Jméno", "Příjmení", "Tituly", "Ulice", "Město","IČO","Rodné číslo","Emailová adresa","Telefonní číslo"]
+                            },
+                            "format": {"$ref": "#/definitions/defInputTypes"},
+                            "defaultValue": {
+                                "type": "string",
+                                "default": "",
+                                "pattern": "({formdata\\.[^}]*})\\s*|[^{][^{}]*",
+                                "examples": ["{formdata.subjekt.jmeno}","{formdata.subjekt.prijmeni}","XYZ"]
+                            }
+                        }        
+                    },
+                    "else": {
+                        "properties": {
+                            "format": false
+                        }
+                    }
+                },
+                {
+                    "if": {"properties": {"type": {"const": "number"}}},
+                    "then": {
+                        "properties": {
+                            "label": {
+                                "default": "Popisek číselného pole",
+                                "examples": ["Délka (m)", "Šířka (m)", "Celkem (m)", "PSČ"]
+                            }
+                        }       
+                    }
+                },
+                {
+                    "if": {"properties": {"type": {"const": "file"}}},
+                    "then": {
+                        "properties": {
+                            "label": {
+                                "default": "File"
+                            },
+                            "limit": {
+                                "type": "integer",
+                                "description": "Uvádí, kolik maximálně souborů je možné do pole nahrát.",
+                                "minimum": 1,
+                                "maximum": 10
+                            },
+                            "formats": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "pattern": "^[A-Za-z0-9]*$"
+                                }
+                            }
+                        }        
+                    },
+                    "else": {
+                        "properties": {
+                            "limit": false,
+                            "formats": false
                         }
                     }
                 }
-            }
+            ]
+        },
+        "defNumberElement": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": ["number"]
+                },
+                "name": {"$ref": "#/definitions/defName"},
+                "label": {
+                    "type": "string",
+                    "default": "Číselné pole",
+                    "examples": ["Délka (m)", "Šířka (m)", "Celkem (m)", "PSČ"],
+                    "maxlength": 30
+                },
+                "title": {"$ref": "#/definitions/defTitle"},
+                "help": {"$ref": "#/definitions/defHelp"},
+                "width": {"$ref": "#/definitions/defGridWidth"},
+				"defaultValue": {
+                    "type": "string",
+                    "default": "",
+                    "pattern": "({formdata\\.[^}]*})\\s*|[^{][^{}]*"
+                }
+            },
+            "required": ["type", "name", "label"]
         },
         "defNewRow": {
             "type": "object",
